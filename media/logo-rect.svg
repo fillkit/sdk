@@ -1,0 +1,55 @@
+<svg width="420" height="150" viewBox="0 0 420 150" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .brand { fill: #1e40af; }
+      .brand-stroke { stroke: #1e40af; stroke-width: 10; stroke-linecap: round; fill: none; }
+    </style>
+  </defs>
+
+  <!-- FillKit logo mark (scaled to fit wordmark layout) -->
+  <g transform="translate(20, 25) scale(0.7)">
+    <g class="brand-stroke">
+      <line x1="10" y1="10" x2="190" y2="140" />
+      <line x1="190" y1="10" x2="10" y2="140" />
+    </g>
+    <circle class="brand" cx="100" cy="75" r="28" />
+    <!-- Three horizontal lines (written lines icon, white) -->
+    <g stroke="white" stroke-width="3" stroke-linecap="round">
+      <line x1="89" y1="68" x2="111" y2="68" />
+      <line x1="89" y1="75" x2="111" y2="75" />
+      <line x1="89" y1="82" x2="111" y2="82" />
+    </g>
+  </g>
+
+  <!-- "Fill" — regular weight -->
+  <g fill="none" stroke="#1e40af" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- F -->
+    <path d="M185,95 V52 H210" />
+    <line x1="185" y1="71" x2="205" y2="71" />
+
+    <!-- i -->
+    <circle cx="226" cy="50" r="3" fill="#1e40af" stroke="none" />
+    <line x1="226" y1="60" x2="226" y2="95" />
+
+    <!-- l -->
+    <line x1="248" y1="47" x2="248" y2="95" />
+
+    <!-- l -->
+    <line x1="270" y1="47" x2="270" y2="95" />
+  </g>
+
+  <!-- "Kit" — bold weight -->
+  <g fill="none" stroke="#1e40af" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <!-- K -->
+    <line x1="290" y1="52" x2="290" y2="95" />
+    <path d="M314,52 L290,73.5 L314,95" />
+
+    <!-- i -->
+    <circle cx="330" cy="50" r="4.5" fill="#1e40af" stroke="none" />
+    <line x1="330" y1="60" x2="330" y2="95" />
+
+    <!-- t -->
+    <line x1="352" y1="47" x2="352" y2="95" />
+    <line x1="340" y1="60" x2="364" y2="60" />
+  </g>
+</svg>

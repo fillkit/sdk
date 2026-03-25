@@ -1,0 +1,61 @@
+FillKit Source Available License
+
+Copyright (c) 2025-Present Justin Dahkenangnon
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, subject to the following conditions:
+
+1. PERSONAL USE: The Software may be used for personal, non-commercial purposes.
+
+2. DEVELOPMENT AND TESTING: The Software may be used for developing and testing
+   commercial products, including but not limited to SaaS applications,
+   commercial software, and commercial services.
+
+3. EDUCATIONAL USE: The Software may be used for educational purposes,
+   including academic research and teaching.
+
+4. NON-COMMERCIAL USE: The Software may be used by non-profit organizations
+   for non-commercial purposes.
+
+5. COMMERCIAL DISTRIBUTION PROHIBITED: The Software, its source code, features,
+   or functionality may NOT be included, embedded, or distributed as part of
+   any commercial product or service.
+
+6. COMPETING SERVICES PROHIBITED: You may NOT use the Software to create,
+   develop, or offer competing autofill services or products.
+
+7. ATTRIBUTION: The above copyright notice and this permission notice shall be
+   included in all copies or substantial portions of the Software.
+
+8. COMMERCIAL LICENSING: For commercial distribution, embedding, or competing
+   services, contact justin@claviscore.com
+
+9. NO WARRANTY: THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+
+10. NO LIABILITY: IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+    FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
+    OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+EXAMPLES:
+
+ALLOWED:
+- Using FillKit for personal projects
+- Using FillKit to test your SaaS application during development
+- Using FillKit for educational purposes
+- Using FillKit in non-profit organizations
+- Using FillKit for QA testing of commercial software
+
+NOT ALLOWED:
+- Including FillKit in your SaaS application's final product
+- Embedding FillKit's autofill features in your commercial software
+- Creating competing autofill services based on FillKit
+- Distributing FillKit as part of your commercial service
+- Using FillKit in commercial products without a license
+
+For commercial licensing options, contact: justin@claviscore.com

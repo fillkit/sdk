@@ -1,0 +1,114 @@
+{
+  "name": "@fillkit/core",
+  "version": "1.0.2",
+  "description": "FillKit SDK - Intelligent form autofill for developers",
+  "type": "module",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist/esm/**/*.js",
+    "dist/cjs/**/*.js",
+    "dist/types/**/*.d.ts",
+    "!dist/**/*.map",
+    "!dist/browser",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run clean && npm run build:types && npm run build:lib && npm run build:browser && npm run build:report",
+    "build:types": "tsc --project tsconfig.build.json",
+    "build:lib": "vite build --mode production",
+    "build:browser": "vite build --config vite.config.browser.ts --mode production",
+    "build:report": "node scripts/build-report.js",
+    "prepare:browser": "node scripts/prepare-browser-package.js",
+    "publish:core": "npm publish --access public",
+    "publish:browser": "npm run prepare:browser && cd packages/browser && npm publish --access public",
+    "publish:all": "npm run publish:core && npm run publish:browser",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:check": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "cm": "git-cz",
+    "generate:tfidf": "npx tsx scripts/generate-tfidf-vocabulary.js",
+    "clean": "rm -rf dist",
+    "prepare": "husky"
+  },
+  "keywords": [
+    "autofill",
+    "forms",
+    "testing",
+    "demo",
+    "faker",
+    "fillkit",
+    "form-autofill",
+    "form-filling",
+    "form-autofill-sdk",
+    "form-filling-sdk",
+    "form-autofill-library",
+    "form-filling-library",
+    "sdk"
+  ],
+  "browserslist": [
+    ">0.5%",
+    "not dead",
+    "not op_mini all"
+  ],
+  "author": "Justin Dah-kenangnon <dah.kenangnon@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fillkit/sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fillkit/sdk/issues"
+  },
+  "homepage": "https://fillkit.dev",
+  "dependencies": {
+    "@faker-js/faker": "^10.3.0",
+    "@nanostores/persistent": "^1.2.0",
+    "nanostores": "^1.1.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@commitlint/cz-commitlint": "^20.1.0",
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "commitizen": "^4.3.1",
+    "eslint": "^9.37.0",
+    "husky": "^9.1.7",
+    "jsdom": "^27.0.0",
+    "prettier": "^3.6.2",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.1",
+    "vite": "^7.1.7",
+    "vitest": "^3.2.4"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  }
+}

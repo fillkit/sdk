@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Browser package - generated bundles (created by prepare:browser script)
+packages/browser/*.js
+
+# NPM authentication files (generated during publish)
+.npmrc
+packages/browser/.npmrc
+
+# Yarn (project uses npm)
+yarn.lock
+yarn-error.log
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

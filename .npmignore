@@ -1,0 +1,33 @@
+# Source maps - reduce package size
+*.map
+
+# Source files - not needed in published package
+src/
+tsconfig*.json
+vite.config*.ts
+
+# Development files
+.github/
+.husky/
+scripts/
+*.test.ts
+*.spec.ts
+__tests__/
+
+# Config files
+.prettierrc.json
+.prettierignore
+commitlint.config.js
+eslint.config.js
+
+
+# Git
+.git/
+.gitignore
+
+# Dependencies
+node_modules/
+
+# Build artifacts that shouldn't be in npm
+*.log
+*.tsbuildinfo

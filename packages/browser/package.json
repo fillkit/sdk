@@ -1,0 +1,41 @@
+{
+  "name": "@fillkit/browser",
+  "version": "1.0.2",
+  "description": "FillKit Browser Bundles - IIFE and UMD builds for CDN and direct browser usage",
+  "type": "module",
+  "main": "./fillkit.umd.js",
+  "module": "./fillkit.iife.js",
+  "unpkg": "./fillkit.iife.js",
+  "jsdelivr": "./fillkit.iife.js",
+  "files": [
+    "fillkit.iife.js",
+    "fillkit.umd.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "autofill",
+    "forms",
+    "testing",
+    "demo",
+    "faker",
+    "fillkit",
+    "browser",
+    "cdn",
+    "iife",
+    "umd",
+    "form-autofill",
+    "form-filling"
+  ],
+  "author": "Justin Dah-kenangnon <justin@claviscore.com>",
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fillkit/sdk.git",
+    "directory": "packages/browser"
+  },
+  "bugs": {
+    "url": "https://github.com/fillkit/sdk/issues"
+  },
+  "homepage": "https://fillkit.dev"
+}
