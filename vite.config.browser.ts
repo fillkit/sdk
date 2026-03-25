@@ -5,7 +5,7 @@ import { readFileSync } from 'fs';
 const pkg = JSON.parse(
   readFileSync(resolve(__dirname, 'package.json'), 'utf-8')
 );
-const banner = `/*! FillKit SDK v${pkg.version} | \u00a9 ${new Date().getFullYear()} ClavisCore | FillKit Source Available License | https://fillkit.dev */`;
+const banner = `/*! FillKit SDK v${pkg.version} | MIT License | https://fillkit.dev */`;
 
 /**
  * Vite Configuration for Browser/CDN Build

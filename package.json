@@ -1,6 +1,6 @@
 {
   "name": "@fillkit/core",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "FillKit SDK - Intelligent form autofill for developers",
   "type": "module",
   "main": "./dist/cjs/index.js",

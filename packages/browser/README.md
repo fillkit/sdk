@@ -1,82 +1,61 @@
-# @fillkit/browser
+<div align="center">
 
-Browser bundles for FillKit - IIFE and UMD builds for CDN and direct browser usage.
+![FillKit](https://raw.githubusercontent.com/fillkit/sdk/main/media/logo-rect.svg)
 
-## Installation
+**Context-aware form autofill — browser bundle**
 
-### Via CDN (unpkg)
+[![npm version](https://badge.fury.io/js/@fillkit%2Fbrowser.svg)](https://www.npmjs.com/package/@fillkit/browser)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
-```html
-<!-- IIFE (Immediately Invoked Function Expression) -->
-<script src="https://unpkg.com/@fillkit/browser@0.0.1/fillkit.iife.js"></script>
-<script>
-  // FillKit is available globally as window.FillKit
-  const fk = new FillKit.FillKit({
-    provider: 'local',
-  });
+</div>
 
-  fk.autofillAll();
-</script>
-```
+---
 
-### Via CDN (jsDelivr)
+Standalone browser bundles for [FillKit](https://fillkit.dev). Drop a single `<script>` tag into any page to get context-aware form autofill with realistic data — no build step required. Recognizes 100+ field types across 50+ languages.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/@fillkit/browser@0.0.1/fillkit.iife.js"></script>
-```
+Prefer a zero-code approach? Use the browser extension instead:
 
-### Via npm (for self-hosting)
+<div align="center">
 
-```bash
-npm install @fillkit/browser
-```
+<a href="https://chrome.google.com/webstore/detail/fillkit/"><img src="https://raw.githubusercontent.com/fillkit/sdk/main/media/chrome.svg" width="24" alt="Chrome">&nbsp;&nbsp;Chrome Extension</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://addons.mozilla.org/en-US/firefox/addon/fillkit/"><img src="https://raw.githubusercontent.com/fillkit/sdk/main/media/firefox.svg" width="24" alt="Firefox">&nbsp;&nbsp;Firefox Add-on</a>
 
-Then copy `node_modules/@fillkit/browser/fillkit.iife.js` to your static files.
+</div>
 
 ## Usage
 
-Once loaded, FillKit is available as a global variable:
-
-```javascript
-// Create instance
-const fk = new FillKit.FillKit({
-  provider: 'local',
-  locale: 'en_US',
-  mode: 'valid',
-});
-
-// Fill all forms on the page
-fk.autofillAll();
-
-// Fill specific form
-const form = document.querySelector('#my-form');
-fk.autofill(form);
-
-// Clear all forms
-fk.clearAll();
+```html
+<script src="https://unpkg.com/@fillkit/browser/fillkit.iife.js"></script>
+<script>
+  const fk = await FillKit.FillKit.init({ mode: 'valid', ui: { enabled: true } });
+  await fk.autofillAll();
+</script>
 ```
 
-## Bundles Included
+Alternative CDN:
 
-- **fillkit.iife.js** - IIFE format (recommended for CDN)
-- **fillkit.umd.js** - UMD format (works with AMD/CommonJS/global)
+```html
+<script src="https://cdn.jsdelivr.net/npm/@fillkit/browser/fillkit.iife.js"></script>
+```
 
-## For Node.js/Bundler Usage
+## Bundles
 
-If you're using a bundler (Vite, webpack, etc.) or Node.js, use the main package instead:
+| File              | Format | Use case                     |
+| ----------------- | ------ | ---------------------------- |
+| `fillkit.iife.js` | IIFE   | `<script>` tag (recommended) |
+| `fillkit.umd.js`  | UMD    | AMD / CommonJS / global      |
+
+## Using a bundler?
+
+Use [`@fillkit/core`](https://www.npmjs.com/package/@fillkit/core) instead — it's tree-shakeable and doesn't bundle Faker.js.
 
 ```bash
 npm install @fillkit/core
 ```
 
-See [@fillkit/core](https://www.npmjs.com/package/@fillkit/core) for more details.
+## Docs
+
+Full API reference at [fillkit.dev/docs](https://fillkit.dev/docs).
 
 ## License
 
-FillKit Source Available License - See LICENSE file for details.
-
-## Links
-
-- [Website](https://fillkit.dev)
-- [Documentation](https://fillkit.dev/docs)
-- [GitHub](https://github.com/fillkit/sdk)
+[MIT](./LICENSE)

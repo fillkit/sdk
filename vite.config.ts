@@ -39,8 +39,7 @@ export default defineConfig(() => {
             entryFileNames: 'index.js',
             preserveModules: false,
             exports: 'named',
-            banner:
-              '/*! FillKit SDK | © 2025 ClavisCore | FillKit Source Available License */',
+            banner: '/*! FillKit SDK | MIT License | https://fillkit.dev */',
           },
           {
             format: 'cjs',
@@ -48,8 +47,7 @@ export default defineConfig(() => {
             entryFileNames: 'index.js',
             preserveModules: false,
             exports: 'named',
-            banner:
-              '/*! FillKit SDK | © 2025 ClavisCore | FillKit Source Available License */',
+            banner: '/*! FillKit SDK | MIT License | https://fillkit.dev */',
           },
         ],
       },
