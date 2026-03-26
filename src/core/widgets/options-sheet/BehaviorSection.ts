@@ -111,7 +111,7 @@ export class BehaviorSection {
         'text',
         'emailDomain',
         undefined,
-        this.options.emailDomain || 'fillkit.dev',
+        this.options.emailDomain || 'example.com',
         'example.com',
         value => this.handleChange('emailDomain', value)
       );

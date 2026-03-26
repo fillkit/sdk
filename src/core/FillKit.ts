@@ -263,9 +263,7 @@ export class FillKit {
         !Number.isInteger(options.seed) ||
         options.seed < 0
       ) {
-        throw new ConfigurationError(
-          'seed must be a non-negative integer',
-        );
+        throw new ConfigurationError('seed must be a non-negative integer');
       }
     }
 
@@ -1269,20 +1267,16 @@ export class FillKit {
 
     // Update seed in constructor options (not persisted) and reinitialize provider
     if ('seed' in newOptions) {
-      const newSeed =
-        newOptions.seed === null ? undefined : newOptions.seed;
+      const newSeed = newOptions.seed === null ? undefined : newOptions.seed;
       if (
         newSeed !== undefined &&
         (typeof newSeed !== 'number' ||
           !Number.isInteger(newSeed) ||
           newSeed < 0)
       ) {
-        throw new ConfigurationError(
-          'seed must be a non-negative integer',
-        );
+        throw new ConfigurationError('seed must be a non-negative integer');
       }
-      const seedChanged =
-        this.constructorOptions.seed !== newSeed;
+      const seedChanged = this.constructorOptions.seed !== newSeed;
       this.constructorOptions.seed = newSeed;
       if (seedChanged) {
         await this.initializeProvider();

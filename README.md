@@ -41,6 +41,14 @@ await fk.autofillAll();
 
 Full API reference, configuration options, and framework guides at [fillkit.dev/docs](https://fillkit.dev/docs).
 
+## Intended Use
+
+FillKit is designed exclusively for **development**, **QA testing**, and **demo environments**. All generated data is synthetic — realistic but entirely fake. FillKit is not intended for filling real forms with real personal information.
+
+## Privacy & Terms
+
+FillKit SDK operates entirely on your device by default. No form data is collected or transmitted. See our [Privacy Policy](https://fillkit.dev/privacy) and [Terms of Service](https://fillkit.dev/terms) for full details.
+
 ## License
 
 [MIT](./LICENSE)

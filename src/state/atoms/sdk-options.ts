@@ -155,7 +155,7 @@ export const defaultSdkOptions: SdkOptionsState = {
   includeOutsideForms: false,
   includeSelectors: [],
   excludeSelectors: [],
-  emailDomain: 'fillkit.dev',
+  emailDomain: 'example.com',
   overrides: {},
 };
 

@@ -129,7 +129,7 @@ export class LocalProvider implements DatasetProvider {
     this.config = {
       ...config,
       locale: config.locale || 'en',
-      emailDomain: config.emailDomain || opts.emailDomain || 'fillkit.dev',
+      emailDomain: config.emailDomain || opts.emailDomain || 'example.com',
     };
     this.localeManager = new LocaleManager(this.config.locale);
     this.strategyRegistry = new StrategyRegistry();
