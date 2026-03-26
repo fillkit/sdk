@@ -107,6 +107,26 @@ function hasPersistedState(key: string): boolean {
 }
 
 /**
+ * Protocols where FillKit can operate (needs HTTP for forms, APIs, etc.).
+ * @internal
+ */
+const ALLOWED_PROTOCOLS = new Set(['http:', 'https:']);
+
+/**
+ * Checks whether the current environment supports FillKit.
+ *
+ * Returns `true` for http:/https: pages and SSR (no window).
+ * Returns `false` for file:, data:, blob:, about:, etc.
+ * @internal
+ */
+function isSupportedEnvironment(): boolean {
+  if (typeof window === 'undefined' || typeof window.location === 'undefined') {
+    return true; // SSR / Node — allow (DOM code fails naturally)
+  }
+  return ALLOWED_PROTOCOLS.has(window.location.protocol);
+}
+
+/**
  * The main FillKit SDK class.
  */
 export class FillKit {
@@ -141,6 +161,14 @@ export class FillKit {
   private static pendingInit: Promise<FillKit> | null = null;
 
   static async init(options?: FillKitOptions): Promise<FillKit> {
+    // Protocol guard: only allow http: and https: pages
+    if (!isSupportedEnvironment()) {
+      throw new ConfigurationError(
+        'FillKit requires an http: or https: page. ' +
+          `Current protocol: ${window.location.protocol}`
+      );
+    }
+
     // Singleton guard: reuse pending init if one is already in progress
     if (FillKit.pendingInit) {
       return FillKit.pendingInit;
@@ -320,6 +348,17 @@ export class FillKit {
           ...sdkOptions.get(),
           excludeSelectors: options.autofill.excludeSelectors,
         });
+      }
+    }
+
+    // Extension override: the extension is the authority on provider selection.
+    // Persisted state may contain a stale provider value from the SaaS dashboard
+    // or a prior session. The extension decides provider based on its own settings
+    // (currently 'local', future: may be 'cloud' when SaaS integration ships).
+    if (options._source === 'extension' && options.provider !== undefined) {
+      const currentOpts = sdkOptions.get();
+      if (currentOpts.provider !== options.provider) {
+        sdkOptions.set({ ...currentOpts, provider: options.provider });
       }
     }
 
@@ -826,6 +865,16 @@ export class FillKit {
    * 3. Updates UI status.
    */
   private async performInitialization(): Promise<void> {
+    // Defensive protocol guard for direct `new FillKit()` usage
+    if (!isSupportedEnvironment()) {
+      this.initError = new ConfigurationError(
+        'FillKit requires an http: or https: page. ' +
+          `Current protocol: ${window.location.protocol}`
+      );
+      this.initialized = false;
+      return;
+    }
+
     try {
       this.initializationStartTime = Date.now();
 
