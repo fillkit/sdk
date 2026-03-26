@@ -15,6 +15,7 @@ import type {
   FeedbackManager,
   FeedbackMessage,
 } from '../../FeedbackManager.js';
+import { clearElement } from '../../../utils/dom-helpers.js';
 
 /** Default number of messages visible before scrolling. */
 const DEFAULT_MAX_VISIBLE_MESSAGES = 5;
@@ -126,7 +127,7 @@ export class FeedbackDisplay {
    */
   private render(messages: FeedbackMessage[]): void {
     // Clear existing content
-    this.container.innerHTML = '';
+    clearElement(this.container);
 
     // Show/hide container based on messages
     if (messages.length === 0) {
@@ -260,7 +261,7 @@ export class FeedbackDisplay {
   private createDismissButton(messageId: string): HTMLElement {
     const button = document.createElement('button');
     button.className = 'fillkit-feedback-dismiss';
-    button.innerHTML = '&times;';
+    button.textContent = '\u00D7';
     button.title = 'Dismiss';
 
     button.addEventListener('click', () => {

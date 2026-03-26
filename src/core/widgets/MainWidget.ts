@@ -12,6 +12,7 @@ import type { UiPlacement } from '../../types/index.js';
 import { FillKitIcons, type IconName } from '../icons.js';
 import type { FeedbackManager } from '../FeedbackManager.js';
 import { sdkOptions, uiConfig } from '../../state/atoms/index.js';
+import { setSvgContent } from '../../utils/dom-helpers.js';
 
 /**
  * Manages the core FillKit toolbar UI.
@@ -209,7 +210,7 @@ export class MainWidget {
     // Brand icon
     const brandIcon = document.createElement('span');
     brandIcon.className = 'fillkit-widget-brand-icon';
-    brandIcon.innerHTML = FillKitIcons.brandSquare;
+    setSvgContent(brandIcon, FillKitIcons.brandSquare);
 
     // Status dot
     const statusDot = document.createElement('span');
@@ -313,7 +314,7 @@ export class MainWidget {
     const iconContainer = document.createElement('span');
     iconContainer.className = 'fillkit-widget-icon';
     iconContainer.setAttribute('aria-hidden', 'true');
-    iconContainer.innerHTML = FillKitIcons[iconName];
+    setSvgContent(iconContainer, FillKitIcons[iconName]);
 
     // Add label for horizontal layouts
     const labelSpan = document.createElement('span');

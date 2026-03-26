@@ -17,6 +17,7 @@
  */
 
 import { FillKitIcons } from '../icons.js';
+import { setSvgContent } from '../../utils/dom-helpers.js';
 
 /** Input types that should NOT show the inline fill icon. */
 const IGNORED_INPUT_TYPES = new Set([
@@ -216,7 +217,7 @@ export class InlineFillIndicator {
     btn.setAttribute('role', 'button');
     btn.setAttribute('aria-label', 'Fill this field with FillKit');
     btn.setAttribute('tabindex', '-1');
-    btn.innerHTML = FillKitIcons.brandSquare;
+    setSvgContent(btn, FillKitIcons.brandSquare);
 
     // Prevent focus steal from the target field
     btn.addEventListener('mousedown', (e: MouseEvent) => {

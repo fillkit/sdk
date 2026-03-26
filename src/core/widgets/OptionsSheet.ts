@@ -11,6 +11,7 @@
 import { logger } from '@/core/Logger.js';
 import type { UiInitOptions } from '../UiInjector.js';
 import { FillKitIcons } from '../icons.js';
+import { setSvgContent } from '../../utils/dom-helpers.js';
 import { fillkitApiBaseUrl } from '../../types/cloud.js';
 import type { FillMode } from '../../types/index.js';
 import { createSectionSpacer } from './options-sheet/form-helpers.js';
@@ -166,7 +167,7 @@ export class OptionsSheet {
 
     const brandLogo = document.createElement('span');
     brandLogo.className = 'fillkit-sheet-brand';
-    brandLogo.innerHTML = FillKitIcons.brandRect;
+    setSvgContent(brandLogo, FillKitIcons.brandRect);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'fillkit-options-subtitle';
@@ -178,7 +179,7 @@ export class OptionsSheet {
     const closeBtn = document.createElement('button');
     closeBtn.className = 'fillkit-options-close';
     closeBtn.setAttribute('aria-label', 'Close settings');
-    closeBtn.innerHTML = FillKitIcons.close;
+    setSvgContent(closeBtn, FillKitIcons.close);
     closeBtn.addEventListener('click', () => this.close());
 
     header.appendChild(titleGroup);

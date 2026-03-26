@@ -10,6 +10,7 @@
 import { fillkitHomeUrl } from '../../types/cloud.js';
 import { widgetState } from '../../state/atoms/index.js';
 import { FillKitIcons } from '../icons.js';
+import { setSvgContent } from '../../utils/dom-helpers.js';
 
 /**
  * Creates and manages the help documentation popover.
@@ -72,7 +73,7 @@ export class HelpSheet {
 
     const brandLogo = document.createElement('span');
     brandLogo.className = 'fillkit-sheet-brand';
-    brandLogo.innerHTML = FillKitIcons.brandRect;
+    setSvgContent(brandLogo, FillKitIcons.brandRect);
 
     const subtitle = document.createElement('p');
     subtitle.className = 'fillkit-help-subtitle';
@@ -83,7 +84,7 @@ export class HelpSheet {
 
     const closeBtn = document.createElement('button');
     closeBtn.className = 'fillkit-help-close';
-    closeBtn.innerHTML = FillKitIcons.close;
+    setSvgContent(closeBtn, FillKitIcons.close);
     closeBtn.setAttribute('aria-label', 'Close shortcuts');
     closeBtn.addEventListener('click', () => this.close());
 

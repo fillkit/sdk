@@ -169,6 +169,27 @@ export function createCheckboxSection(
 }
 
 /**
+ * Clears a `<select>` element and adds a single default `<option>`.
+ *
+ * @param select - The select element to reset.
+ * @param defaultLabel - The text content of the default option.
+ * @param defaultValue - The value of the default option (defaults to `""`).
+ */
+export function resetSelectWithDefault(
+  select: HTMLSelectElement,
+  defaultLabel: string,
+  defaultValue = ''
+): void {
+  while (select.firstChild) {
+    select.removeChild(select.firstChild);
+  }
+  const option = document.createElement('option');
+  option.value = defaultValue;
+  option.textContent = defaultLabel;
+  select.appendChild(option);
+}
+
+/**
  * Validates whether a string is a valid CSS selector.
  *
  * @remarks

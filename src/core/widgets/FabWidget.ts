@@ -8,6 +8,7 @@
  */
 
 import { FillKitIcons } from '../icons.js';
+import { setSvgContent } from '../../utils/dom-helpers.js';
 
 /**
  * Compact FAB widget that serves as a minimized state for the main widget.
@@ -37,7 +38,7 @@ export class FabWidget {
     button.setAttribute('role', 'button');
     button.setAttribute('aria-label', 'Show FillKit widget (Alt+H)');
     button.setAttribute('title', 'Show FillKit widget (Alt+H)');
-    button.innerHTML = FillKitIcons.brandSquare;
+    setSvgContent(button, FillKitIcons.brandSquare);
 
     this.clickHandler = () => {
       document.dispatchEvent(

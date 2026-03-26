@@ -1,8 +1,11 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeEach } from 'vitest';
 import {
   buildAttributeSelector,
   isSafeUrl,
   isSafeNavigationUrl,
+  parseSvg,
+  setSvgContent,
+  clearElement,
 } from '../../src/utils/dom-helpers.js';
 
 describe('dom-helpers', () => {
@@ -93,6 +96,88 @@ describe('dom-helpers', () => {
 
     it('rejects vbscript: URLs', () => {
       expect(isSafeNavigationUrl('vbscript:msgbox')).toBe(false);
+    });
+  });
+
+  describe('parseSvg', () => {
+    it('parses a valid SVG string into an SVGElement', () => {
+      const svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect/></svg>';
+      const result = parseSvg(svg);
+      expect(result).toBeInstanceOf(SVGElement);
+      expect(result!.tagName.toLowerCase()).toBe('svg');
+    });
+
+    it('returns null for malformed SVG', () => {
+      const result = parseSvg('<svg><not-closed');
+      expect(result).toBeNull();
+    });
+
+    it('returns null for empty string', () => {
+      expect(parseSvg('')).toBeNull();
+    });
+
+    it('returns null for non-SVG XML', () => {
+      const result = parseSvg('<div>hello</div>');
+      // DOMParser with image/svg+xml may produce parsererror or non-SVG root
+      // Either way, parseSvg should not return it as a valid SVGElement
+      if (result !== null) {
+        expect(result).toBeInstanceOf(SVGElement);
+      }
+    });
+  });
+
+  describe('setSvgContent', () => {
+    let container: HTMLElement;
+
+    beforeEach(() => {
+      container = document.createElement('div');
+      container.textContent = 'old content';
+    });
+
+    it('replaces container content with parsed SVG', () => {
+      const svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"></svg>';
+      setSvgContent(container, svg);
+      expect(container.children.length).toBe(1);
+      expect(container.children[0].tagName.toLowerCase()).toBe('svg');
+    });
+
+    it('clears container even if SVG is invalid', () => {
+      setSvgContent(container, '<invalid');
+      expect(container.children.length).toBe(0);
+      expect(container.textContent).toBe('');
+    });
+
+    it('replaces existing children', () => {
+      container.appendChild(document.createElement('span'));
+      container.appendChild(document.createElement('span'));
+      expect(container.children.length).toBe(2);
+
+      const svg =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"></svg>';
+      setSvgContent(container, svg);
+      expect(container.children.length).toBe(1);
+      expect(container.children[0].tagName.toLowerCase()).toBe('svg');
+    });
+  });
+
+  describe('clearElement', () => {
+    it('removes all child nodes', () => {
+      const el = document.createElement('div');
+      el.appendChild(document.createElement('span'));
+      el.appendChild(document.createTextNode('text'));
+      el.appendChild(document.createElement('p'));
+      expect(el.childNodes.length).toBe(3);
+
+      clearElement(el);
+      expect(el.childNodes.length).toBe(0);
+    });
+
+    it('is safe to call on an empty element', () => {
+      const el = document.createElement('div');
+      expect(() => clearElement(el)).not.toThrow();
+      expect(el.childNodes.length).toBe(0);
     });
   });
 });

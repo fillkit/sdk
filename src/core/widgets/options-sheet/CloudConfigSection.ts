@@ -10,7 +10,8 @@
  * - Connection status visualization
  */
 
-import { createSectionGroup } from './form-helpers.js';
+import { createSectionGroup, resetSelectWithDefault } from './form-helpers.js';
+import { clearElement } from '../../../utils/dom-helpers.js';
 import type { DatasetStats } from './types.js';
 import {
   cloudConfig,
@@ -202,8 +203,11 @@ export class CloudConfigSection {
     const projectDisplay = document.createElement('div');
     projectDisplay.className = 'fillkit-alert fillkit-project-display';
     projectDisplay.style.display = 'none';
-    projectDisplay.innerHTML =
-      '<span class="fillkit-alert-content">Loading...</span>';
+    clearElement(projectDisplay);
+    const loadingSpan = document.createElement('span');
+    loadingSpan.className = 'fillkit-alert-content';
+    loadingSpan.textContent = 'Loading...';
+    projectDisplay.appendChild(loadingSpan);
 
     // Multi-Project Selector
     const projectSelectorWrapper = document.createElement('div');
@@ -213,8 +217,7 @@ export class CloudConfigSection {
     this.projectSelect = document.createElement('select');
     this.projectSelect.className = 'fillkit-options-input';
     this.projectSelect.name = 'cloudProjectId';
-    this.projectSelect.innerHTML =
-      '<option value="">Choose a project...</option>';
+    resetSelectWithDefault(this.projectSelect, 'Choose a project...');
     this.projectSelect.onchange = () => this.handleProjectChange();
 
     const loadProjectsBtn = document.createElement('button');
@@ -312,7 +315,7 @@ export class CloudConfigSection {
     // Scan Page Button
     const scanBtn = document.createElement('button');
     scanBtn.className = 'fillkit-btn fillkit-btn-secondary';
-    scanBtn.innerHTML = 'Scan This Page';
+    scanBtn.textContent = 'Scan This Page';
     scanBtn.type = 'button';
     scanBtn.onclick = e => {
       e.preventDefault();
@@ -324,7 +327,7 @@ export class CloudConfigSection {
     // Sync Datasets Button
     const syncBtn = document.createElement('button');
     syncBtn.className = 'fillkit-btn fillkit-btn-secondary';
-    syncBtn.innerHTML = 'Refresh Datasets';
+    syncBtn.textContent = 'Refresh Datasets';
     syncBtn.type = 'button';
     syncBtn.onclick = e => {
       e.preventDefault();
@@ -409,7 +412,7 @@ export class CloudConfigSection {
 
     const scanUrlsBtn = document.createElement('button');
     scanUrlsBtn.className = 'fillkit-btn fillkit-btn-secondary';
-    scanUrlsBtn.innerHTML = 'Scan Multiple Pages';
+    scanUrlsBtn.textContent = 'Scan Multiple Pages';
     scanUrlsBtn.type = 'button';
     scanUrlsBtn.onclick = e => {
       e.preventDefault();
@@ -591,8 +594,7 @@ export class CloudConfigSection {
     if (projectSection) projectSection.style.display = 'block';
 
     // Populate project selector
-    this.projectSelect.innerHTML =
-      '<option value="">Choose a project...</option>';
+    resetSelectWithDefault(this.projectSelect, 'Choose a project...');
 
     if (creds.projects && creds.projects.length > 0) {
       creds.projects.forEach((project: { id: string; name: string }) => {
