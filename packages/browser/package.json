@@ -1,6 +1,6 @@
 {
   "name": "@fillkit/browser",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "FillKit Browser Bundles - IIFE and UMD builds for CDN and direct browser usage",
   "type": "module",
   "main": "./fillkit.umd.js",
