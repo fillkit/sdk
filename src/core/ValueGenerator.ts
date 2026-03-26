@@ -220,19 +220,6 @@ export class ValueGenerator {
   }
 
   /**
-   * Check if current provider supports seeding.
-   *
-   * @returns True if seed() is available
-   */
-  supportsSeeding(): boolean {
-    return (
-      this.provider !== null &&
-      'seed' in this.provider &&
-      typeof this.provider.seed === 'function'
-    );
-  }
-
-  /**
    * Generate multiple values at once.
    * Useful for bulk generation with consistent options.
    *

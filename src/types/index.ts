@@ -185,6 +185,16 @@ export interface FillKitOptions {
   locale?: string;
   /** Email domain for generated emails */
   emailDomain?: string;
+  /**
+   * Seed for deterministic data generation.
+   *
+   * When set, the local provider produces the same values on every run
+   * for the same seed value. Useful for reproducible tests, screenshots,
+   * and demo recordings. Must be a non-negative integer.
+   * `0` is a valid seed. `undefined` means random (non-deterministic).
+   * Only applies to the local provider. Ignored by cloud provider.
+   */
+  seed?: number | null;
   /** Enable caching */
   cache?: boolean;
 

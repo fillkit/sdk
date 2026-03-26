@@ -256,6 +256,19 @@ export class FillKit {
     // Save constructor options for non-persisted values (emailDomain, dataset, cache, etc.)
     this.constructorOptions = options;
 
+    // Validate seed early (before any async work)
+    if (options.seed !== undefined && options.seed !== null) {
+      if (
+        typeof options.seed !== 'number' ||
+        !Number.isInteger(options.seed) ||
+        options.seed < 0
+      ) {
+        throw new ConfigurationError(
+          'seed must be a non-negative integer',
+        );
+      }
+    }
+
     // Set instance marker synchronously for extension coexistence detection
     globalRecord[FILLKIT_INSTANCE_KEY] = {
       source: options._source ?? 'page',
@@ -718,6 +731,7 @@ export class FillKit {
           this.provider = new LocalProvider({
             locale: opts.locale,
             emailDomain: this.constructorOptions.emailDomain,
+            seed: this.constructorOptions.seed ?? undefined,
           });
           break;
 
@@ -1251,6 +1265,28 @@ export class FillKit {
     // Update emailDomain in constructor options (not persisted)
     if (newOptions.emailDomain) {
       this.constructorOptions.emailDomain = newOptions.emailDomain;
+    }
+
+    // Update seed in constructor options (not persisted) and reinitialize provider
+    if ('seed' in newOptions) {
+      const newSeed =
+        newOptions.seed === null ? undefined : newOptions.seed;
+      if (
+        newSeed !== undefined &&
+        (typeof newSeed !== 'number' ||
+          !Number.isInteger(newSeed) ||
+          newSeed < 0)
+      ) {
+        throw new ConfigurationError(
+          'seed must be a non-negative integer',
+        );
+      }
+      const seedChanged =
+        this.constructorOptions.seed !== newSeed;
+      this.constructorOptions.seed = newSeed;
+      if (seedChanged) {
+        await this.initializeProvider();
+      }
     }
 
     // Update autofill defaults

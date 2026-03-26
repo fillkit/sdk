@@ -30,6 +30,20 @@ describe('LocalProvider — seed support', () => {
     expect(value1).not.toBe(value2);
   });
 
+  it('seed=0 is valid and produces deterministic results', async () => {
+    const p1 = new LocalProvider({ seed: 0 });
+    await p1.init();
+    const v1 = await p1.getValue('email');
+    await p1.destroy();
+
+    const p2 = new LocalProvider({ seed: 0 });
+    await p2.init();
+    const v2 = await p2.getValue('email');
+    await p2.destroy();
+
+    expect(v1).toBe(v2);
+  });
+
   it('produces non-deterministic values without a seed', async () => {
     const provider = new LocalProvider();
     await provider.init();

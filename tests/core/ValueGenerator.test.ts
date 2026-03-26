@@ -35,11 +35,6 @@ describe('ValueGenerator', () => {
     it('supportsProfiles returns true for LocalProvider', () => {
       expect(generator.supportsProfiles()).toBe(true);
     });
-
-    it('supportsSeeding returns false for LocalProvider (seed is internal)', () => {
-      // LocalProvider does not expose a public seed() method on DatasetProvider
-      expect(generator.supportsSeeding()).toBe(false);
-    });
   });
 
   describe('generate', () => {
