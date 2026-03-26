@@ -46,22 +46,24 @@ export class NameStrategy implements Strategy {
           return 'invalid-name';
       }
     } else {
+      const identity = options.formIdentity;
+
       // Generate valid names based on field type
       let name: string;
 
       switch (fieldType) {
         case 'name.given':
         case 'firstName':
-          name = fakerInstance.person.firstName();
+          name = identity?.firstName ?? fakerInstance.person.firstName();
           break;
 
         case 'name.family':
         case 'lastName':
-          name = fakerInstance.person.lastName();
+          name = identity?.lastName ?? fakerInstance.person.lastName();
           break;
 
         case 'middleName':
-          name = fakerInstance.person.middleName();
+          name = fakerInstance.person.middleName(identity?.sex);
           break;
 
         case 'name.prefix':
@@ -75,8 +77,12 @@ export class NameStrategy implements Strategy {
 
         case 'fullName':
         default:
-          // Full name with realistic formatting
-          name = fakerInstance.person.fullName();
+          name = identity
+            ? fakerInstance.person.fullName({
+                firstName: identity.firstName,
+                lastName: identity.lastName,
+              })
+            : fakerInstance.person.fullName();
           break;
       }
 

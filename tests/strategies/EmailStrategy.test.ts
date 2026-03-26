@@ -29,6 +29,36 @@ describe('EmailStrategy', () => {
     });
   });
 
+  describe('formIdentity correlation', () => {
+    it('should generate email containing identity firstName', () => {
+      const result = strategy.generate({
+        mode: 'valid',
+        faker,
+        formIdentity: { firstName: 'John', lastName: 'Smith' },
+      });
+      expect(result.toLowerCase()).toContain('john');
+    });
+
+    it('should use identity with custom emailDomain', () => {
+      const result = strategy.generate({
+        mode: 'valid',
+        faker,
+        emailDomain: 'test.dev',
+        formIdentity: { firstName: 'Alice', lastName: 'Wonder' },
+      });
+      expect(result).toContain('@test.dev');
+      const localPart = result.split('@')[0].toLowerCase();
+      expect(localPart.includes('alice') || localPart.includes('wonder')).toBe(
+        true
+      );
+    });
+
+    it('should work without formIdentity (backwards compatible)', () => {
+      const result = strategy.generate({ mode: 'valid', faker });
+      expect(result).toMatch(/@/);
+    });
+  });
+
   describe('invalid mode', () => {
     it('should generate an invalid email', () => {
       const result = strategy.generate({ mode: 'invalid', faker });

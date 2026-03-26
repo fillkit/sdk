@@ -12,6 +12,7 @@ import type {
   FillKitEventHandler,
   FieldConstraints,
   FieldElementDescriptor,
+  FormIdentity,
 } from '../types/index.js';
 import { CancelableEvent } from '../types/index.js';
 import { SemanticFieldType } from '../types/semantic-fields.js';
@@ -24,6 +25,7 @@ import type { ProviderManager } from './ProviderManager.js';
 import type { DatasetProvider } from '../types/index.js';
 import type { ContextCollector } from './ContextCollector.js';
 import { CloudProvider } from '../providers/CloudProvider.js';
+import { createFormIdentity } from './FormIdentityFactory.js';
 import { logger } from '@/core/Logger.js';
 
 /** Events that support cancellation (sequential handler execution). */
@@ -426,6 +428,19 @@ export class FillOrchestrator {
     // Refine ambiguous detections using sibling context
     this.refineDetections(detectionCache, fields);
 
+    // Create a shared identity for correlated form data (name → email → username).
+    // Skip for single-field fills — nothing to correlate against.
+    let formIdentity: FormIdentity | undefined;
+    if (
+      !isSingleField &&
+      typeof this.provider?.getFakerInstance === 'function'
+    ) {
+      formIdentity = createFormIdentity(
+        detectionCache,
+        this.provider.getFakerInstance(options.locale)
+      );
+    }
+
     // Enable batch mode to defer classList operations
     this.fieldFiller.startBatch();
 
@@ -436,7 +451,8 @@ export class FillOrchestrator {
           field,
           options,
           eventHandlers,
-          detectionCache.get(field)
+          detectionCache.get(field),
+          formIdentity
         ).catch(error => {
           logger.warn('Failed to fill field:', field, error);
           return this.createErrorFieldInfo(field);
@@ -476,14 +492,15 @@ export class FillOrchestrator {
    * @param options - Autofill options.
    * @param eventHandlers - Lifecycle event handlers.
    * @param cachedDetection - Optional cached detection result (Performance optimization).
-   * @param valueCache - Optional value cache (Performance optimization).
+   * @param formIdentity - Optional shared identity for correlated generation.
    * @returns A promise resolving to the {@link FieldInfo}.
    */
   private async fillField(
     element: HTMLElement,
     options: AutofillOptions,
     eventHandlers: Map<FillKitEventName, FillKitEventHandler[]>,
-    cachedDetection?: FieldDetection
+    cachedDetection?: FieldDetection,
+    formIdentity?: FormIdentity
   ): Promise<FieldInfo> {
     // Skip if field has user input and force is not enabled
     if (!options.force && this.fieldFiller.hasUserInput(element)) {
@@ -529,6 +546,7 @@ export class FillOrchestrator {
           string | number | boolean | null
         >,
         locale: options.locale,
+        formIdentity,
       }
     );
 

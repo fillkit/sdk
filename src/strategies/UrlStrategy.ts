@@ -44,8 +44,15 @@ export class UrlStrategy implements Strategy {
     } else {
       // Non-URL field types
       switch (fieldType) {
-        case 'displayName':
-          return fakerInstance.internet.displayName();
+        case 'displayName': {
+          const identity = options.formIdentity;
+          return identity
+            ? fakerInstance.internet.displayName({
+                firstName: identity.firstName,
+                lastName: identity.lastName,
+              })
+            : fakerInstance.internet.displayName();
+        }
 
         case 'userAgent':
           return fakerInstance.internet.userAgent();

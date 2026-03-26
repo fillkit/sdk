@@ -18,7 +18,7 @@ describe('Value Deduplication', () => {
     document.body.innerHTML = '';
   });
 
-  it('fills two name.given fields with different values', async () => {
+  it('fills two name.given fields with the same correlated value', async () => {
     document.body.innerHTML = `
       <form>
         <input type="text" name="first_name" />
@@ -36,8 +36,8 @@ describe('Value Deduplication', () => {
 
     expect(first.value).not.toBe('');
     expect(second.value).not.toBe('');
-    // Both detected as name.given but should get different values
-    expect(first.value).not.toBe(second.value);
+    // With FormIdentity, duplicate name fields get the same correlated value
+    expect(first.value).toBe(second.value);
   });
 
   it('fills two email fields with different values', async () => {

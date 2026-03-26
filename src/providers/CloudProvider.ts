@@ -238,6 +238,16 @@ export class CloudProvider implements DatasetProvider {
   }
 
   /**
+   * Get a Faker instance for FormIdentity generation.
+   * Delegates to the internal LocalProvider.
+   */
+  getFakerInstance(
+    locale?: string
+  ): ReturnType<LocalProvider['getFakerInstance']> {
+    return this.localProvider.getFakerInstance(locale);
+  }
+
+  /**
    * Initializes the provider.
    *
    * @remarks

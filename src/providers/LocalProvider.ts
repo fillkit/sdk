@@ -983,12 +983,23 @@ export class LocalProvider implements DatasetProvider {
     const targetLocale = locale || this.config.locale;
     const fakerInstance = this.localeManager.getInstance(targetLocale);
 
+    // Generate correlated name data first
+    const sex = fakerInstance.helpers.arrayElement(['female', 'male'] as const);
+    const firstName = fakerInstance.person.firstName(sex);
+    const lastName = fakerInstance.person.lastName(sex);
+
     // Generate a coherent person profile
     const person = {
-      [SemanticFieldType.FULL_NAME]: fakerInstance.person.fullName(),
-      [SemanticFieldType.NAME_GIVEN]: fakerInstance.person.firstName(),
-      [SemanticFieldType.NAME_FAMILY]: fakerInstance.person.lastName(),
-      [SemanticFieldType.EMAIL]: fakerInstance.internet.email(),
+      [SemanticFieldType.FULL_NAME]: fakerInstance.person.fullName({
+        firstName,
+        lastName,
+      }),
+      [SemanticFieldType.NAME_GIVEN]: firstName,
+      [SemanticFieldType.NAME_FAMILY]: lastName,
+      [SemanticFieldType.EMAIL]: fakerInstance.internet.exampleEmail({
+        firstName,
+        lastName,
+      }),
       [SemanticFieldType.PHONE]: fakerInstance.phone.number(),
       [SemanticFieldType.COMPANY]: fakerInstance.company.name(),
       [SemanticFieldType.JOB_TITLE]: fakerInstance.person.jobTitle(),
@@ -1006,6 +1017,14 @@ export class LocalProvider implements DatasetProvider {
     };
 
     return person;
+  }
+
+  /**
+   * Get a Faker instance for a given locale.
+   * Used by FillOrchestrator to create FormIdentity before filling.
+   */
+  getFakerInstance(locale?: string): typeof faker {
+    return this.localeManager.getInstance(locale || this.config.locale);
   }
 
   /**
@@ -1027,7 +1046,7 @@ export class LocalProvider implements DatasetProvider {
     _options: ValueOptions,
     fakerInstance: typeof faker
   ): string | number | boolean | null {
-    const { constraints = {}, element } = _options;
+    const { constraints = {}, element, formIdentity } = _options;
 
     // Try to use a registered strategy
     const strategy = this.strategyRegistry.getStrategy(fieldType);
@@ -1040,6 +1059,7 @@ export class LocalProvider implements DatasetProvider {
         fieldType: fieldType,
         faker: fakerInstance,
         emailDomain: this.config.emailDomain,
+        formIdentity,
       };
 
       try {

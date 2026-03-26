@@ -85,16 +85,30 @@ export class EmailStrategy implements Strategy {
           return 'invalid-email';
       }
     } else {
+      const identity = options.formIdentity;
+
       if (isMultiple) {
         const count = fakerInstance.number.int({ min: 2, max: 4 });
         const emails: string[] = [];
 
         for (let i = 0; i < count; i++) {
           if (emailDomain) {
-            const username = fakerInstance.internet.username();
+            const username = identity
+              ? fakerInstance.internet.username({
+                  firstName: identity.firstName,
+                  lastName: identity.lastName,
+                })
+              : fakerInstance.internet.username();
             emails.push(`${username}@${emailDomain}`);
           } else {
-            emails.push(fakerInstance.internet.exampleEmail());
+            emails.push(
+              identity
+                ? fakerInstance.internet.exampleEmail({
+                    firstName: identity.firstName,
+                    lastName: identity.lastName,
+                  })
+                : fakerInstance.internet.exampleEmail()
+            );
           }
         }
 
@@ -103,16 +117,26 @@ export class EmailStrategy implements Strategy {
 
       // Single valid email — use exampleEmail() for RFC 2606 safe domains
       let email = emailDomain
-        ? `${fakerInstance.internet.username()}@${emailDomain}`
-        : fakerInstance.internet.exampleEmail();
+        ? `${identity ? fakerInstance.internet.username({ firstName: identity.firstName, lastName: identity.lastName }) : fakerInstance.internet.username()}@${emailDomain}`
+        : identity
+          ? fakerInstance.internet.exampleEmail({
+              firstName: identity.firstName,
+              lastName: identity.lastName,
+            })
+          : fakerInstance.internet.exampleEmail();
 
       if (constraints.pattern) {
         const pattern = new RegExp(constraints.pattern);
         for (let i = 0; i < 10; i++) {
           if (pattern.test(email)) break;
           email = emailDomain
-            ? `${fakerInstance.internet.username()}@${emailDomain}`
-            : fakerInstance.internet.exampleEmail();
+            ? `${identity ? fakerInstance.internet.username({ firstName: identity.firstName, lastName: identity.lastName }) : fakerInstance.internet.username()}@${emailDomain}`
+            : identity
+              ? fakerInstance.internet.exampleEmail({
+                  firstName: identity.firstName,
+                  lastName: identity.lastName,
+                })
+              : fakerInstance.internet.exampleEmail();
         }
       }
 

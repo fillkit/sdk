@@ -133,6 +133,21 @@ export interface FieldConstraints {
 }
 
 /**
+ * A shared identity for correlated form data generation.
+ *
+ * @remarks
+ * When a form contains person-related fields (name, email, username, etc.),
+ * a single FormIdentity is generated and shared across all strategies so that
+ * `firstName="John"` + `lastName="Smith"` produces `email="John.Smith42@example.com"`.
+ * The identity is `Object.freeze()`d for parallel safety.
+ */
+export interface FormIdentity {
+  readonly firstName: string;
+  readonly lastName: string;
+  readonly sex?: 'female' | 'male';
+}
+
+/**
  * Options for value generation
  */
 export interface ValueOptions {
@@ -150,6 +165,8 @@ export interface ValueOptions {
   faker?: Faker;
   /** Custom email domain for email generation (local provider only) */
   emailDomain?: string;
+  /** Shared identity for correlated form data (name → email → username consistency) */
+  formIdentity?: FormIdentity;
 }
 
 /**
@@ -354,6 +371,12 @@ export interface DatasetProvider {
    * Cleanup resources
    */
   destroy?(): Promise<void>;
+
+  /**
+   * Get a Faker instance for FormIdentity generation.
+   * Used by FillOrchestrator to create correlated identities before filling.
+   */
+  getFakerInstance?(locale?: string): Faker;
 }
 
 /**

@@ -31,8 +31,14 @@ export class GenderStrategy implements Strategy {
       }
     } else {
       switch (fieldType) {
-        case 'sex':
+        case 'sex': {
+          const identity = options.formIdentity;
+          if (identity?.sex) {
+            // Capitalize: 'female' → 'Female'
+            return identity.sex.charAt(0).toUpperCase() + identity.sex.slice(1);
+          }
           return fakerInstance.person.sex();
+        }
         case 'gender':
         default:
           return fakerInstance.person.gender();

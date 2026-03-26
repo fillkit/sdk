@@ -57,9 +57,16 @@ export class TextStrategy implements Strategy {
           text = fakerInstance.commerce.department();
           break;
 
-        case 'username':
-          text = fakerInstance.internet.username();
+        case 'username': {
+          const identity = options.formIdentity;
+          text = identity
+            ? fakerInstance.internet.username({
+                firstName: identity.firstName,
+                lastName: identity.lastName,
+              })
+            : fakerInstance.internet.username();
           break;
+        }
 
         case 'search':
           text = fakerInstance.commerce.productName();
