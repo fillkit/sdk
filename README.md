@@ -18,7 +18,7 @@ Use it as a **browser extension** for instant one-click filling, or **embed the 
 
 <div align="center">
 
-<a href="https://chrome.google.com/webstore/detail/fillkit/"><img src="./media/chrome.svg" width="32" alt="Chrome">&nbsp;&nbsp;Chrome Extension</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://addons.mozilla.org/en-US/firefox/addon/fillkit/"><img src="./media/firefox.svg" width="32" alt="Firefox">&nbsp;&nbsp;Firefox Add-on</a>
+<a href="https://chromewebstore.google.com/detail/fillkit/lajjifnmncbjbdkcakmbikjanofilmld"><img src="./media/chrome.svg" width="32" alt="Chrome">&nbsp;&nbsp;Chrome Extension</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://addons.mozilla.org/en-US/firefox/addon/fillkit/"><img src="./media/firefox.svg" width="32" alt="Firefox">&nbsp;&nbsp;Firefox Add-on</a>
 
 </div>
 
