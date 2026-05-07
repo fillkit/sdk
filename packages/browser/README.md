@@ -52,10 +52,6 @@ Use [`@fillkit/core`](https://www.npmjs.com/package/@fillkit/core) instead — i
 npm install @fillkit/core
 ```
 
-## Docs
-
-Full API reference at [fillkit.dev/docs](https://fillkit.dev/docs).
-
 ## Intended Use
 
 FillKit is designed exclusively for **development**, **QA testing**, and **demo environments**. All generated data is synthetic — realistic but entirely fake. FillKit is not intended for filling real forms with real personal information.
@@ -66,4 +62,4 @@ FillKit operates entirely on your device by default. No form data is collected o
 
 ## License
 
-[MIT](./LICENSE)
+Released under the [MIT License](./LICENSE).
